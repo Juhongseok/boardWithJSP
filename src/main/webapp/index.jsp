@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%= request.getAttribute("hello") %>
+	<a href="join.do">회원가입</a>
 </body>
 </html>

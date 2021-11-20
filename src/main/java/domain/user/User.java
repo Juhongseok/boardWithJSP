@@ -1,27 +1,18 @@
 package domain.user;
 
 public class User {
-	private int id;
 	private String memberId;
 	private String password;
 	private String address;
-	private Role role;
+	private String role;
 	
-	public User(int id, String memberId, String password, String address, Role role) {
-		super();
-		this.id = id;
+	public User(String memberId, String password, String address, String role) {
 		this.memberId = memberId;
 		this.password = password;
 		this.address = address;
 		this.role = role;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getMemberId() {
 		return memberId;
 	}
@@ -40,12 +31,10 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
 }
