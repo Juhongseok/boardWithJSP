@@ -68,12 +68,18 @@ public class ControllerUsingURI extends HttpServlet {
 		try {
 			viewPage = handler.process(req, resp);
 		} catch (Throwable e) {
+			System.out.println(e);
 			throw new ServletException();
 		}
-		if(viewPage != null) {
-			RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
-			dispatcher.forward(req, resp);
+		try {
+			if(viewPage != null) {
+				RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);
+				dispatcher.forward(req, resp);
+			}
+		}catch(IllegalStateException e) {
+			System.out.println(e);
 		}
+		
 	}
 	
 	

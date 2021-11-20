@@ -10,7 +10,7 @@ import domain.user.User;
 
 public class UserDao {
 	public User selectById(Connection conn, String id) throws SQLException {
-		String sql = "SELECT MEMBER_ID FROM USER WHERE MEMBER_ID = ?;";
+		String sql = "SELECT * FROM USER WHERE MEMBER_ID = ?;";
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
 		try{
