@@ -1,10 +1,12 @@
 package domain.user.dao;
 
+//데이터베이스에 실질적으로 접근하기 위한 파일
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import db.ConnectionProvider;
 import db.JdbcUtil;
 import domain.user.User;
 import domain.user.dto.ChangeInfoReqDto;
@@ -90,6 +92,46 @@ public class UserDao {
 		}catch (SQLException e) {
 			System.out.println(e);
 			return null;	
+		}
+		return null;
+	}
+	
+	public int getPrimaryKey(String userId) {
+		String sql = "SELECT ID FROM USER WHERE MEMBER_ID=?";
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		try{
+			Connection conn = ConnectionProvider.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("ID");
+			}
+		}catch(SQLException e){
+			System.out.println(e);
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		return -1;
+	}
+	
+	public String getMemberId(Connection conn, int id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT MEMBER_ID FROM USER WHERE ID=?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				return rs.getString("MEMBER_ID");
+		}catch(SQLException e){
+			System.out.println(e);
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
 		return null;
 	}

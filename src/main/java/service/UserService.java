@@ -1,5 +1,6 @@
 package service;
 
+//핸들러로 부터 분기되어 서비스 처리
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -46,11 +47,13 @@ public class UserService {
 			conn = ConnectionProvider.getConnection();
 			User user = userDao.selectById(conn, id);
 			String address = userDao.getAddress(conn, id);
+			
 			if(user == null)
 				throw new LoginException();
 			
 			if(!user.getPassword().equals(password))
 				throw new LoginException();
+			
 			return new LoginReqDto(id, password, address);
 		}catch(SQLException e) {
 			throw new RuntimeException();
@@ -60,10 +63,6 @@ public class UserService {
 	}
 	
 	public void logOut() {
-		
-	}
-	
-	public void showUserInfo() {
 		
 	}
 

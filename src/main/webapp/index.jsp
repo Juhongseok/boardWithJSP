@@ -18,6 +18,8 @@
 		${user.id}님 안녕하세요<br/>
 		<a href="logout.do">로그아웃</a>
 		<a href="showInfo.do">회원정보</a>
+		<a href="writeBoard.do">게시글 작성</a>
+		<a href="listBoard.do">글목록보기</a>
 	</u:isLogin>
 </body>
 </html>

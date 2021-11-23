@@ -34,7 +34,6 @@ public class ShowInfoHandler implements CommandHandler{
 		LoginReqDto user = userService.changeInfo(changeInfoReqDto);
 		HttpSession session = req.getSession();
 		if(user != null) {
-			//session.invalidate();
 			session.setAttribute("user", user);
 			return "/index.jsp";
 		}

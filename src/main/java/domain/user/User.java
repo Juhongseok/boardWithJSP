@@ -1,5 +1,5 @@
 package domain.user;
-
+//데이터베이스에서 나온 결과를 담을 모델
 public class User {
 	private String memberId;
 	private String password;

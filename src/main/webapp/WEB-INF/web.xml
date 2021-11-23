@@ -42,6 +42,7 @@
   <filter-mapping>
   	<filter-name>loginCheckFilter</filter-name>
   	<url-pattern>/showInfo.do</url-pattern>
+  	<url-pattern>/writeBoard.do</url-pattern>
   </filter-mapping>
   
   <servlet>

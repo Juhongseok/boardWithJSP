@@ -1,5 +1,6 @@
 package domain.user.dto;
 
+//로그인 데이터 전송 모델
 public class LoginReqDto {
 	private String id;
 	private String password;
@@ -14,20 +15,10 @@ public class LoginReqDto {
 	public String getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getPassword() {
 		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getAddress() {
 		return address;
 	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
 }
