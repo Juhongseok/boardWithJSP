@@ -10,6 +10,7 @@ import db.JdbcUtil;
 import domain.board.Board;
 import domain.board.dao.BoardDao;
 import domain.board.dto.ListReqDto;
+import domain.board.dto.ReadReqDto;
 import domain.board.dto.WriteReqDto;
 import domain.user.dao.UserDao;
 
@@ -21,8 +22,9 @@ public class BoardService {
 		return boardDao.insert(conn, writeReqDto);
 	}
 	
-	public void deleteBoard() {
-		
+	public int deleteBoard(int boardId) throws SQLException {
+		Connection conn = ConnectionProvider.getConnection();
+		return boardDao.deleteBoard(conn, boardId);
 	}
 	
 	public void modifyBoard() {
@@ -59,5 +61,29 @@ public class BoardService {
 	public int getCountAll() throws SQLException {
 		Connection conn = ConnectionProvider.getConnection();
 		return BoardDao.selectCount(conn);
+	}
+	
+	public ReadReqDto getBoard(int boardID) {
+		Connection conn = null;
+		BoardDao boardDao = new BoardDao();
+		UserDao userDao = new UserDao();
+		try {
+			conn = ConnectionProvider.getConnection();
+			int result = boardDao.increaseReadCount(conn, boardID);
+			if(result != 1)
+				throw new SQLException();
+			
+			Board board = boardDao.selectById(conn, boardID);
+			ReadReqDto readReqDto = new ReadReqDto(board.getId(),
+					board.getTitle(),
+					board.getContent(),
+					userDao.getMemberId(conn, board.getUserId()),
+					board.getUserId());
+			
+			return readReqDto;
+		}catch(SQLException e) {
+			System.out.println(e);
+		}
+		return null;
 	}
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import db.JdbcUtil;
 import domain.board.Board;
 import domain.board.dto.WriteReqDto;
+import domain.user.dto.LoginReqDto;
 
 public class BoardDao {
 	
@@ -60,6 +61,7 @@ public class BoardDao {
 		return new Board(rs.getInt("ID"),
 				rs.getString("TITLE"),
 				rs.getInt("READCOUNT"),
+				rs.getString("CONTENT"),
 				rs.getTimestamp("CREATEDATE"),
 				rs.getInt("USER_ID"));
 	}
@@ -79,4 +81,45 @@ public class BoardDao {
 		}
 		return 0;
 	}
+	
+	public Board selectById(Connection conn, int id) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM BOARD WHERE ID=?; ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			Board result = null;
+			if(rs.next()) 
+				result = convertBoard(rs);
+			return result;
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+	}
+	
+	public int increaseReadCount(Connection conn, int id) throws SQLException {		
+		String sql = "UPDATE BOARD SET READCOUNT=READCOUNT+1 WHERE ID=?";
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, id);
+			return pstmt.executeUpdate();
+		}catch (SQLException e) {
+			System.out.println(e);	
+		}
+		return -1;
+	}
+
+	public int deleteBoard(Connection conn, int boardId) {
+		String sql = "DELETE FROM BOARD WHERE ID=?;";
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, boardId);
+			return pstmt.executeUpdate();
+		}catch (SQLException e) {
+			System.out.println(e);	
+		}
+		return -1;
+	}
+
 }

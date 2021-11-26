@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import handler.CommandHandler;
+import handler.JoinHandler;
 import handler.NullHandler;
 
 public class ControllerUsingURI extends HttpServlet {

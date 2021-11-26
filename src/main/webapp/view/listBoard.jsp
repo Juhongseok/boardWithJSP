@@ -26,7 +26,9 @@
             <c:forEach var="list" items="${result.content}">
             	<tr>
             		<td>${list.id}</td>
-            		<td>${list.title}</td>
+            		<td>
+						<a href="read.do?no=${list.id}&pageNo=${result.currentPage}"><c:out value="${list.title}"/></a>
+					</td>
             		<td>${list.userName}</td>
             		<td>${list.readCount}</td>
             	</tr>
@@ -37,18 +39,19 @@
             	<tr>
             		<td colspan=4>
 						<c:if test="${result.startPage > 5}">
-							<a href="#">[이전]</a>
+							<a href="listBoard.do?pageNo=${result.startPage-5}">[이전]</a>
 						</c:if>
 						<c:forEach var="pageNo" begin="${result.startPage}" end="${result.endPage}">
-							<a href="#">[${pageNo}]</a>
+							<a href="listBoard.do?pageNo=${pageNo}">[${pageNo}]</a>
 						</c:forEach>
 						<c:if test="${result.endPage < result.totalPage}">
-							<a href="#">[다음]</a>
+							<a href="listBoard.do?pageNo=${result.startPage+5}">[다음]</a>
 						</c:if>
 					</td>
             	</tr>
             </c:if>
         </tfoot>
 	</table>
+	<input type="button" value="뒤로가기" onclick="location.href='index.jsp'">
 </body>
 </html>

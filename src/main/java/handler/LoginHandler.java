@@ -12,6 +12,7 @@ public class LoginHandler implements CommandHandler{
 	private static final String FORM_VIEW = "/view/loginForm.jsp";
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		System.out.println(req.getMethod());
 		if(req.getMethod().equalsIgnoreCase("GET"))
 			return processForm(req, resp);
 		else if(req.getMethod().equalsIgnoreCase("POST"))
